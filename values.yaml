@@ -1,15 +1,15 @@
 
 replicaCount: 1
 
-frontendimage:
-  name: "frontend"
-  repository: aminfourty7/frontend #update frontend docker image from dockerhub 
+backendimage:
+  name: "backend"
+  repository: aminfourty7/k8s-flaskapp:v1.0.0 #update backend docker image from dockerhub 
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
-backendimage:
-  name: "backend"
-  repository: aminfourty7/mlmicroserviceapi #update backend docker image from dockerhub 
+frontendimage:
+  name: "frontend"
+  repository: aminfourty7/frontend:v1.0.0 #update frontend docker image from dockerhub 
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
