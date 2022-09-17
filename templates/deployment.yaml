@@ -34,7 +34,7 @@ spec:
           image: "{{ .Values.frontendimage.repository }}"
           imagePullPolicy: {{ .Values.frontendimage.pullPolicy }}
           ports:
-            - name: http
+            - name: httpd
               containerPort: 80
               protocol: TCP
           #livenessProbe:

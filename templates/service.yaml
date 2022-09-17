@@ -5,13 +5,13 @@ metadata:
   labels:
     {{- include "multi-container-chart.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.servicefrontend.type }}
   ports:
-    - port: {{ .Values.servicefrontend.type }}
+    - port: {{ .Values.servicefrontend.port }}
       targetPort: http
       protocol: TCP
-      name: http
-    - port: {{ .Values.servicebackend.type }}
+      name: httpd
+    - port: {{ .Values.servicebackend.port }}
       targetPort: http
       protocol: TCP
       name: http  
