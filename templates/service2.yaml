@@ -1,16 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "multi-container-chart.fullname" . }}
+  name: {{ include "multi-container-chart.fullname" . }}-2
   labels:
     {{- include "multi-container-chart.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.servicefrontend.type }}
+  type: {{ .Values.servicebackend.type }}
   ports:
-    - port: {{ .Values.servicefrontend.port }}
-      targetPort: http
-      protocol: TCP
-      name: httpd
     - port: {{ .Values.servicebackend.port }}
       targetPort: http
       protocol: TCP

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "multi-container-chart.fullname" . }}
+  name: {{ include "multi-container-chart.fullname" . }}-frontend
   labels:
     {{- include "multi-container-chart.labels" . | nindent 4 }}
 spec:
@@ -34,7 +34,7 @@ spec:
           image: "{{ .Values.frontendimage.repository }}"
           imagePullPolicy: {{ .Values.frontendimage.pullPolicy }}
           ports:
-            - name: httpd
+            - name: http
               containerPort: 80
               protocol: TCP
           #livenessProbe:
@@ -45,35 +45,5 @@ spec:
           #  httpGet:
           #    path: /
           #    port: http
-        - name: {{ .Values.backendimage.name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.backendimage.repository }}"
-          imagePullPolicy: {{ .Values.backendimage.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 5000
-              protocol: TCP
-          #livenessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http
-          #readinessProbe:
-          #  httpGet:
-          #    path: /
-          #    port: http  
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      
        
