@@ -1,12 +1,16 @@
 
-replicaCount: 1
+replicaCount: 2
 
+backendname: "web-app-backend"
 backendimage:
   name: "backend"
   repository: aminfourty7/k8s-flaskapp:v1.0.0 #update backend docker image from dockerhub 
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
+
+
+frontendname: "web-app-frontend" 
 frontendimage:
   name: "frontend"
   repository: aminfourty7/frontend:v1.0.0 #update frontend docker image from dockerhub 
@@ -39,52 +43,14 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+backendlabel: "backend-app"
+frontendlabel: "frontend-app"
+
 servicefrontend:
+  name: "frontend-service"
   type: ClusterIP
   port: 80
 servicebackend:
+  name: "backend-service"
   type: ClusterIP
   port: 5000
-
-ingress:
-  enabled: true
-  className: ""
-  annotations: {
-    kubernetes.io/ingress.class: nginx,
-    kubernetes.io/tls-acme: "true"
-  }
-    
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
